@@ -150,7 +150,7 @@
             <a href="#protocols" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-accent-gold" data-i18n="nav_protocols">Protocols</a>
             <a href="#faq" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-accent-gold" data-i18n="nav_faq">FAQ</a>
             <a href="#testimonials" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-accent-gold">Testrynx</a>
-            <a href="#warranty" onclick="switchView('home')" class="text-slate-400 hover:text-accent-gold transition-colors pb-1">Garansi</a><a href="#warranty" onclick="switchView('home')" class="text-slate-400 hover:text-accent-gold transition-colors pb-1">Garansi</a>
+            <a href="#warranty" onclick="switchView('home'); toggleMobileMenu();" class="block py-2 text-slate-300 hover:text-accent-gold">Garansi</a>
         </div>
     </header>
 
@@ -340,7 +340,107 @@
                     </div>
                 </div>
             </section>
-        </div>
+
+            <!-- ================= TESTIMONIALS / INSTAGRAM PROOF ================= -->
+            <section id="testimonials" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                    <div>
+                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2">Social Proof</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-100">Client Reviews & Testimonials</h2>
+                    </div>
+                </div>
+
+                <!-- 4 Screenshot Chat Preview -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Testi 1 -->
+                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
+                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
+                            <img src="assets/testrynx-1.jpg" alt="Testimoni 1" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Testi 2 -->
+                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
+                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
+                            <img src="assets/testrynx-2.jpg" alt="Testimoni 2" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Testi 3 -->
+                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
+                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
+                            <img src="assets/testrynx-3.jpg" alt="Testimoni 3" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Testi 4 -->
+                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
+                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
+                            <img src="assets/testrynx-4.jpg" alt="Testimoni 4" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tombol Tautan Menuju @testrynx -->
+                <div class="text-center">
+                    <a href="https://instagram.com/jasa_alomanipr" target="_blank" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-obsidian-900 hover:bg-obsidian-800 border border-accent-gold/40 text-accent-gold text-sm font-medium transition-all shadow-lg group">
+                        <i class="fa-brands fa-instagram text-lg group-hover:scale-110 transition-transform"></i>
+                        <span>Lihat Semua Testimoni Selengkapnya di <strong class="text-slate-100">@testrynx</strong></span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Warranty & Guarantee Policy Section -->
+            <section id="warranty" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-obsidian-700 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 text-accent-gold/10 text-8xl font-mono pointer-events-none">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="max-w-2xl mb-10">
+                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2">Protection Protocol</span>
+                        <h2 class="text-3xl font-bold text-slate-100 mb-3">Kebijakan Garansi & Ketentuan Layanan</h2>
+                        <p class="text-slate-400 text-sm">Komitmen transparansi dan keamanan transaksi digital di ARYNX STORE.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Poin 1 -->
+                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
+                                <i class="fa-solid fa-check-to-slot"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-200 text-base">Garansi Login Pertama</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Setiap produk nomor kosong (Telegram/WhatsApp) bergaransi saat pertama kali login sesuai deskripsi varian produk (Fresh/Non-Surel/Surel). Pastikan langsung melakukan pengecekan sesuai instruksi.
+                            </p>
+                        </div>
+
+                        <!-- Poin 2 -->
+                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-200 text-base">Bantuan & Klaim Kendala</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Jika menemui kendala pada akun atau pengiriman kebutuhan sosmed, Anda dapat langsung menghubungi admin resmi kami via WhatsApp dengan menyertakan bukti screenshot/rekaman layar.
+                            </p>
+                        </div>
+
+                        <!-- Poin 3 -->
+                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
+                                <i class="fa-solid fa-user-secret"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-200 text-base">Privasi & Keamanan</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Seluruh data transaksi dan informasi akun pelanggan dijaga kerahasiaannya dengan sistem operasional lowkey dan aman berstandar digital.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div> <!-- Penutup view-home yang benar -->
 
         <!-- ================= VIEW: CATALOG ================= -->
         <div id="view-catalog" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
@@ -359,11 +459,11 @@
             </div>
 
             <!-- Filter Categories -->
-        <div class="flex flex-wrap gap-2 pb-2">
-            <button onclick="setFilter('all')" id="filter-btn-all" class="px-4 py-2 rounded-xl text-xs font-medium bg-accent-gold text-black transition-all">All Assets</button>
-            <button onclick="setFilter('nomor-kosong')" id="filter-btn-nomor-kosong" class="px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-900 border border-obsidian-700 text-slate-300 hover:border-accent-gold transition-all">Nomor Kosong (NoKos)</button>
-            <button onclick="setFilter('sosmed')" id="filter-btn-sosmed" class="px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-900 border border-obsidian-700 text-slate-300 hover:border-accent-gold transition-all">Kebutuhan Sosmed</button>
-        </div>
+            <div class="flex flex-wrap gap-2 pb-2">
+                <button onclick="setFilter('all')" id="filter-btn-all" class="px-4 py-2 rounded-xl text-xs font-medium bg-accent-gold text-black transition-all">All Assets</button>
+                <button onclick="setFilter('nomor-kosong')" id="filter-btn-nomor-kosong" class="px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-900 border border-obsidian-700 text-slate-300 hover:border-accent-gold transition-all">Nomor Kosong (NoKos)</button>
+                <button onclick="setFilter('sosmed')" id="filter-btn-sosmed" class="px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-900 border border-obsidian-700 text-slate-300 hover:border-accent-gold transition-all">Kebutuhan Sosmed</button>
+            </div>
 
             <!-- Products Grid -->
             <div id="catalog-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -413,107 +513,6 @@
             </div>
         </div>
     </div>
-
-            <!-- ================= TESTIMONIALS / INSTAGRAM PROOF ================= -->
-        <section id="testimonials" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        </section>
-            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
-                    <div>
-                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2">Social Proof</span>
-                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-100">Client Reviews & Testimonials</h2>
-                    </div>
-                </div>
-
-                <!-- 4 Screenshot Chat Preview -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <!-- Testi 1 -->
-                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
-                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
-                            <img src="assets/testrynx-1.jpg" alt="Testimoni 1" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-
-                    <!-- Testi 2 -->
-                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
-                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
-                            <img src="assets/testrynx-2.jpg" alt="Testimoni 2" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-
-                    <!-- Testi 3 -->
-                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
-                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
-                            <img src="assets/testrynx-3.jpg" alt="Testimoni 3" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-
-                    <!-- Testi 4 -->
-                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
-                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
-                            <img src="assets/testrynx-4.jpg" alt="Testimoni 4" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tombol Tautan Menuju @testrynx -->
-                <div class="text-center">
-                    <a href="https://instagram.com/jasa_alomanipr" target="_blank" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-obsidian-900 hover:bg-obsidian-800 border border-accent-gold/40 text-accent-gold text-sm font-medium transition-all shadow-lg group">
-                        <i class="fa-brands fa-instagram text-lg group-hover:scale-110 transition-transform"></i>
-                        <span>Lihat Semua Testimoni Selengkapnya di <strong class="text-slate-100">@testrynx</strong></span>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </a>
-                </div>
-            </section>
-
-        <!-- Warranty & Guarantee Policy Section -->
-            <section id="warranty" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-obsidian-700 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-8 text-accent-gold/10 text-8xl font-mono pointer-events-none">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <div class="max-w-2xl mb-10">
-                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2">Protection Protocol</span>
-                        <h2 class="text-3xl font-bold text-slate-100 mb-3">Kebijakan Garansi & Ketentuan Layanan</h2>
-                        <p class="text-slate-400 text-sm">Komitmen transparansi dan keamanan transaksi digital di ARYNX STORE.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- Poin 1 -->
-                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
-                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
-                                <i class="fa-solid fa-check-to-slot"></i>
-                            </div>
-                            <h4 class="font-bold text-slate-200 text-base">Garansi Login Pertama</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Setiap produk nomor kosong (Telegram/WhatsApp) bergaransi saat pertama kali login sesuai deskripsi varian produk (Fresh/Non-Surel/Surel). Pastikan langsung melakukan pengecekan sesuai instruksi.
-                            </p>
-                        </div>
-
-                        <!-- Poin 2 -->
-                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
-                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
-                                <i class="fa-solid fa-headset"></i>
-                            </div>
-                            <h4 class="font-bold text-slate-200 text-base">Bantuan & Klaim Kendala</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Jika menemui kendala pada akun atau pengiriman kebutuhan sosmed, Anda dapat langsung menghubungi admin resmi kami via WhatsApp dengan menyertakan bukti screenshot/rekaman layar.
-                            </p>
-                        </div>
-
-                        <!-- Poin 3 -->
-                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
-                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
-                                <i class="fa-solid fa-user-secret"></i>
-                            </div>
-                            <h4 class="font-bold text-slate-200 text-base">Privasi & Keamanan</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Seluruh data transaksi dan informasi akun pelanggan dijaga kerahasiaannya dengan sistem operasional lowkey dan aman berstandar digital.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
     <!-- Footer -->
     <footer class="bg-obsidian-900 border-t border-obsidian-800 mt-20 py-12">
@@ -691,7 +690,7 @@
             updateLanguageUI();
         });
 
-function switchView(viewName) {
+        function switchView(viewName) {
             const homeView = document.getElementById('view-home');
             const catalogView = document.getElementById('view-catalog');
             
@@ -702,10 +701,8 @@ function switchView(viewName) {
             const navTestimonials = document.getElementById('nav-testimonials');
             const navWarranty = document.getElementById('nav-warranty');
 
-            // Daftar semua elemen menu nav
             const allNavs = [navHome, navCatalog, navProtocols, navFaq, navTestimonials, navWarranty];
 
-            // Reset semua nav menjadi tidak aktif (warna abu-abu, border transparan)
             allNavs.forEach(nav => {
                 if (nav) {
                     nav.classList.remove('text-accent-gold', 'border-accent-gold');
@@ -713,7 +710,6 @@ function switchView(viewName) {
                 }
             });
 
-            // Aktifkan nav dan view sesuai yang dipilih
             if (viewName === 'catalog') {
                 homeView.classList.add('hidden');
                 catalogView.classList.remove('hidden');
@@ -724,7 +720,6 @@ function switchView(viewName) {
                 renderCatalogProducts();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                // Untuk home, protocols, faq, testimonials (posisi di halaman home)
                 homeView.classList.remove('hidden');
                 catalogView.classList.add('hidden');
 
@@ -732,7 +727,7 @@ function switchView(viewName) {
                 if (viewName === 'protocols') activeNav = navProtocols;
                 else if (viewName === 'faq') activeNav = navFaq;
                 else if (viewName === 'testimonials') activeNav = navTestimonials;
-                else if  (viewName === 'warranty') activeNav = navWarranty;
+                else if (viewName === 'warranty') activeNav = navWarranty;
 
                 if (activeNav) {
                     activeNav.classList.add('text-accent-gold', 'border-accent-gold');
@@ -834,7 +829,6 @@ function switchView(viewName) {
                             <span class="text-xs font-mono text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-circle text-[6px]"></i> Stock: ${p.stock}</span>
                         </div>
                         <div class="w-12 h-12 rounded-xl bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold text-xl mb-4 group-hover:scale-105 transition-transform">
-                            <!-- GUNAKAN fa-brands DI SINI AGAR LOGO SOSMED MUNCUL -->
                             <i class="fa-brands ${p.icon}"></i>
                         </div>
                         <h3 class="font-bold text-slate-100 text-lg mb-2 group-hover:text-accent-gold transition-colors">${name}</h3>
@@ -860,7 +854,6 @@ function switchView(viewName) {
 
         function setFilter(cat) {
             currentFilter = cat;
-            // Mengatur warna tombol aktif
             document.querySelectorAll('[id^="filter-btn-"]').forEach(btn => {
                 btn.className = "px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-900 border border-obsidian-700 text-slate-300 hover:border-accent-gold transition-all";
             });
@@ -890,7 +883,6 @@ function switchView(viewName) {
             const price = formatPrice(p.priceIDR, p.priceUSD);
             const iconClass = p.icon || 'fa-chart-line';
 
-            // Menangani specs baik berbentuk Array maupun Objek secara aman
             let specsHTML = '';
             if (Array.isArray(p.specs)) {
                 specsHTML = p.specs.map(s => `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-gold text-[10px]"></i> ${s}</li>`).join('');
@@ -984,7 +976,7 @@ function switchView(viewName) {
             document.getElementById('cart-modal').classList.add('hidden');
         }
 
-function renderCart() {
+        function renderCart() {
             const container = document.getElementById('cart-items-container');
             if (cart.length === 0) {
                 container.innerHTML = `<div class="py-12 text-center text-slate-500 text-xs font-mono">Cart is empty.</div>`;
@@ -996,7 +988,6 @@ function renderCart() {
             let totalPriceUSD = 0;
 
             container.innerHTML = cart.map((item, index) => {
-                // Memperbaiki pembacaan nama agar mendukung format objek maupun string langsung
                 const name = typeof item.name === 'object' ? (currentLang === 'id' ? item.name.id : item.name.en) : (currentLang === 'id' ? item.nameID : item.nameEN);
                 totalPriceIDR += item.priceIDR * item.qty;
                 totalPriceUSD += item.priceUSD * item.qty;
@@ -1061,27 +1052,6 @@ function renderCart() {
             window.open(`https://wa.me/6281932140239?text=${message}`, '_blank');
         }
 
-        function checkoutWhatsApp() {
-            if (cart.length === 0) {
-                showToast('Keranjang order masih kosong', 'fa-triangle-exclamation');
-                return;
-            }
-
-            let totalPriceIDR = 0;
-            let totalPriceUSD = 0;
-            let itemsSummary = cart.map(item => {
-                const name = currentLang === 'id' ? item.nameID : item.nameEN;
-                totalPriceIDR += item.priceIDR * item.qty;
-                totalPriceUSD += item.priceUSD * item.qty;
-                return `• ${name} (${item.qty}x)`;
-            }).join('%0A');
-
-            const total = formatPrice(totalPriceIDR, totalPriceUSD);
-
-            const message = `Halo Admin ARYNX,%0A%0ASaya ingin checkout pesanan dari Cart:%0A${itemsSummary}%0A%0A*Total Estimasi: ${total}*%0A%0AMohon instruksi pembayaran selanjutnya. Terima kasih.`;
-            window.open(`https://wa.me/6281932140239?text=${message}`, '_blank');
-        }
-
         // ================= NOTIFICATION TOAST =================
         function showToast(message, iconClass = 'fa-circle-check') {
             const toast = document.getElementById('toast');
@@ -1104,7 +1074,6 @@ function renderCart() {
        class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-2xl shadow-emerald-900/50 hover:scale-110 transition-all duration-300 group"
        title="Chat Admin WhatsApp">
        <i class="fa-brands fa-whatsapp text-2xl group-hover:rotate-12 transition-transform"></i>
-       <!-- Tooltip kecil saat kursor diarahkan -->
        <span class="absolute right-16 bg-obsidian-900 border border-obsidian-700 text-slate-200 text-xs px-3 py-1.5 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-medium">
            Chat Admin WhatsApp
        </span>
