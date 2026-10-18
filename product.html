@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk — ARYNX STORE</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: {
+                            950: '#090a0f',
+                            900: '#0f1117',
+                            800: '#161922',
+                            700: '#1f2430',
+                            600: '#2d3343',
+                        },
+                        accent: {
+                            gold: '#d4af37',
+                            goldHover: '#e5c158',
+                            muted: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #090a0f; color: #e2e8f0; }
+        .glass-panel { background: rgba(15, 17, 23, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.07); }
+        .glow-gold { box-shadow: 0 0 30px rgba(212, 175, 55, 0.12); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #090a0f; }
+        ::-webkit-scrollbar-thumb { background: #1f2430; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2d3343; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500/30 selection:text-amber-200">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-obsidian-900 border-b border-white/5 py-2 px-4 text-xs text-center text-slate-400 font-mono tracking-wider">
+        <span class="text-amber-400 font-semibold">// OBSIDIAN VAULT</span> &bull; Product Specification Vault &bull; Secure Hybrid Checkout
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand -->
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-obsidian-800 border border-white/10 flex items-center justify-center group-hover:border-amber-500/50 transition-all duration-300">
+                    <i class="fa-solid fa-gem text-amber-400"></i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-widest text-white">ARYNX<span class="text-amber-400">STORE</span></span>
+                    <span class="block text-[10px] font-mono text-slate-400 tracking-wider">VAULT // SPEC</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="index.html" class="text-slate-400 hover:text-white transition-colors" data-i18n="nav_home">Beranda</a>
+                <a href="catalog.html" class="text-slate-400 hover:text-white transition-colors" data-i18n="nav_catalog">Katalog</a>
+                <a href="index.html#features" class="text-slate-400 hover:text-white transition-colors" data-i18n="nav_features">Fitur</a>
+                <a href="index.html#faq" class="text-slate-400 hover:text-white transition-colors" data-i18n="nav_faq">FAQ</a>
+            </nav>
+
+            <!-- Utilities / Actions -->
+            <div class="flex items-center space-x-4">
+                <!-- Currency Toggle -->
+                <button onclick="toggleCurrency()" id="currencyBtn" class="px-3 py-1.5 rounded-lg bg-obsidian-800 border border-white/10 text-xs font-mono text-amber-400 hover:border-amber-500/50 transition-all">
+                    IDR (Rp)
+                </button>
+                <!-- Language Toggle -->
+                <button onclick="toggleLang()" id="langBtn" class="px-3 py-1.5 rounded-lg bg-obsidian-800 border border-white/10 text-xs font-mono text-slate-300 hover:border-white/20 transition-all">
+                    ID
+                </button>
+                <!-- Cart Trigger -->
+                <button onclick="toggleCartModal()" class="relative p-2.5 rounded-xl bg-obsidian-800 border border-white/10 text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition-all">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartBadge" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-amber-500 text-obsidian-950 text-[10px] font-bold flex items-center justify-center shadow-md hidden">0</span>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-obsidian-800 border border-white/10 text-slate-300">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-4 border-t border-white/10 bg-obsidian-950/95">
+            <a href="index.html" class="block py-2 text-slate-400 hover:text-white" data-i18n="nav_home">Beranda</a>
+            <a href="catalog.html" class="block py-2 text-slate-400 hover:text-white" data-i18n="nav_catalog">Katalog</a>
+            <a href="index.html#features" class="block py-2 text-slate-400 hover:text-white" data-i18n="nav_features">Fitur</a>
+            <a href="index.html#faq" class="block py-2 text-slate-400 hover:text-white" data-i18n="nav_faq">FAQ</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        <!-- Breadcrumb -->
+        <div class="flex items-center space-x-2 text-xs font-mono text-slate-400 mb-8">
+            <a href="index.html" class="hover:text-amber-400">Home</a>
+            <span>/</span>
+            <a href="catalog.html" class="hover:text-amber-400">Catalog</a>
+            <span>/</span>
+            <span class="text-amber-400" id="breadcrumbName">Detail Produk</span>
+        </div>
+
+        <!-- Product Detail Wrapper -->
+        <div id="productDetailContainer" class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <!-- Dynamically Rendered Product Spec & Details -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-obsidian-900 border-t border-white/10 mt-20 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-obsidian-800 border border-white/10 flex items-center justify-center">
+                    <i class="fa-solid fa-gem text-amber-400 text-xs"></i>
+                </div>
+                <span class="text-sm font-bold tracking-widest text-white">ARYNX<span class="text-amber-400">STORE</span></span>
+            </div>
+            <p class="text-xs text-slate-500 font-mono text-center">
+                &copy; 2026 ARYNX STORE. Obsidian Vault Architecture. All rights reserved.
+            </p>
+            <div class="flex items-center space-x-4 text-slate-400 text-sm">
+                <a href="https://wa.me/6281932140239" target="_blank" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                <a href="https://github.com" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART / CHECKOUT DRAWER MODAL -->
+    <div id="cartModal" class="fixed inset-0 z-50 flex justify-end bg-obsidian-950/80 backdrop-blur-md hidden">
+        <div class="bg-obsidian-900 border-l border-white/10 w-full max-w-md h-full flex flex-col p-6 shadow-2xl">
+            <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-cart-shopping text-amber-400"></i>
+                    <span data-i18n="cart_title">Keranjang Order Vault</span>
+                </h3>
+                <button onclick="toggleCartModal()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="cartItemsList" class="flex-grow overflow-y-auto py-4 space-y-3">
+                <!-- Cart items injected here -->
+            </div>
+            <div class="pt-4 border-t border-white/10">
+                <div class="flex justify-between items-center mb-4 text-sm font-semibold text-white">
+                    <span data-i18n="cart_total">Total Estimasi:</span>
+                    <span id="cartTotalPrice" class="text-amber-400 font-mono text-base">Rp 0</span>
+                </div>
+                <button onclick="checkoutWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-900/40">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span data-i18n="btn_checkout_wa">Order via WhatsApp Admin</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // Database Produk Terpusat (Sinkron dengan Halaman Lain)
+
+        let currentLang = 'id';
+        let currentCurrency = 'IDR';
+        let currentProduct = null;
+        let cart = [];
+        let quantity = 1;
+
+        // Inisialisasi Halaman
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 'tg-fresh'; // Default ke tg-fresh jika tidak ada parameter
+
+            currentProduct = products.find(p => p.id === productId) || products[0];
+            renderProductDetail();
+            updateCartBadge();
+        });
+
+        // Toggle Bahasa
+        function toggleLang() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            document.getElementById('langBtn').innerText = currentLang.toUpperCase();
+            updateLanguageUI();
+            renderProductDetail();
+        }
+
+        function updateLanguageUI() {
+            const texts = {
+                id: {
+                    nav_home: 'Beranda', nav_catalog: 'Katalog', nav_features: 'Fitur', nav_faq: 'FAQ',
+                    cart_title: 'Keranjang Order Vault', cart_total: 'Total Estimasi:', btn_checkout_wa: 'Order via WhatsApp Admin'
+                },
+                en: {
+                    nav_home: 'Home', nav_catalog: 'Catalog', nav_features: 'Features', nav_faq: 'FAQ',
+                    cart_title: 'Vault Order Cart', cart_total: 'Estimated Total:', btn_checkout_wa: 'Order via WhatsApp Admin'
+                }
+            };
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (texts[currentLang][key]) {
+                    el.innerText = texts[currentLang][key];
+                }
+            });
+        }
+
+        // Toggle Mata Uang
+        function toggleCurrency() {
+            currentCurrency = currentCurrency === 'IDR' ? 'USD' : 'IDR';
+            document.getElementById('currencyBtn').innerText = currentCurrency === 'IDR' ? 'IDR (Rp)' : 'USD ($)';
+            renderProductDetail();
+        }
+
+        function formatPrice(pIDR, pUSD) {
+            if (currentCurrency === 'IDR') {
+                return 'Rp ' + pIDR.toLocaleString('id-ID');
+            } else {
+                return '$ ' + pUSD.toFixed(2);
+            }
+        }
+
+        // Render Detail Produk
+        function renderProductDetail() {
+            if (!currentProduct) return;
+
+            const container = document.getElementById('productDetailContainer');
+            const isReady = currentProduct.status === 'ready';
+            const nameText = currentProduct.name[currentLang];
+            const descText = currentProduct.desc[currentLang];
+            const badgeText = currentProduct.badge[currentLang];
+            const stockText = isReady ? (currentLang === 'id' ? `Stok Vault: ${currentProduct.stock} Unit` : `Vault Stock: ${currentProduct.stock} Units`) : (currentLang === 'id' ? 'Stok Kosong' : 'Out of Stock');
+
+            document.getElementById('breadcrumbName').innerText = nameText;
+
+            container.innerHTML = `
+                <!-- Left: Product Card / Visual Vault Preview -->
+                <div class="lg:col-span-5 flex flex-col space-y-6">
+                    <div class="glass-panel rounded-3xl p-8 border border-white/10 glow-gold relative overflow-hidden flex flex-col justify-between min-h-[380px]">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                    ${badgeText}
+                                </span>
+                                <span class="text-xs font-mono ${isReady ? 'text-emerald-400' : 'text-slate-500'} flex items-center space-x-2">
+                                    <span class="w-2.5 h-2.5 rounded-full ${isReady ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}"></span>
+                                    <span>${stockText}</span>
+                                </span>
+                            </div>
+                            <div class="w-16 h-16 rounded-2xl bg-obsidian-800 border border-white/10 flex items-center justify-center text-amber-400 text-2xl mb-6 shadow-inner">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white mb-3">${nameText}</h2>
+                            <p class="text-sm text-slate-400 leading-relaxed">${descText}</p>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+                            <div>
+                                <span class="block text-xs text-slate-500 font-mono uppercase">${currentLang === 'id' ? 'Harga Satuan' : 'Unit Price'}</span>
+                                <span class="text-xl font-bold font-mono text-amber-400">${formatPrice(currentProduct.priceIDR, currentProduct.priceUSD)}</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs text-slate-500 font-mono">OBSIDIAN VAULT</span>
+                                <span class="text-xs font-medium text-slate-300">Verified Secure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Specification & Order Action -->
+                <div class="lg:col-span-7 flex flex-col space-y-6">
+                    <div class="glass-panel rounded-3xl p-8 border border-white/10 flex flex-col space-y-6">
+                        <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check text-amber-400"></i>
+                            <span>${currentLang === 'id' ? 'Spesifikasi & Detail Aset' : 'Asset Specification'}</span>
+                        </h3>
+                        
+                        <!-- Specs Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-2xl bg-obsidian-950 border border-white/10">
+                                <span class="block text-[10px] font-mono text-slate-500 uppercase">${currentLang === 'id' ? 'Format Aset' : 'Asset Format'}</span>
+                                <span class="text-sm font-medium text-white mt-1 block">${currentProduct.specs.format}</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-obsidian-950 border border-white/10">
+                                <span class="block text-[10px] font-mono text-slate-500 uppercase">${currentLang === 'id' ? 'Metode Pengiriman' : 'Delivery Method'}</span>
+                                <span class="text-sm font-medium text-white mt-1 block">${currentProduct.specs.delivery}</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-obsidian-950 border border-white/10">
+                                <span class="block text-[10px] font-mono text-slate-500 uppercase">${currentLang === 'id' ? 'Garansi Vault' : 'Vault Warranty'}</span>
+                                <span class="text-sm font-medium text-emerald-400 mt-1 block">${currentProduct.specs.warranty}</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-obsidian-950 border border-white/10">
+                                <span class="block text-[10px] font-mono text-slate-500 uppercase">${currentLang === 'id' ? 'Platform Kompatibel' : 'Platform'}</span>
+                                <span class="text-sm font-medium text-white mt-1 block">${currentProduct.specs.platform}</span>
+                            </div>
+                        </div>
+
+                        <!-- Quantity Selector & Calculator -->
+                        <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="w-full sm:w-auto">
+                                <label class="block text-xs font-mono text-slate-400 mb-2">${currentLang === 'id' ? 'Jumlah Pesanan (Qty)' : 'Quantity'}</label>
+                                <div class="flex items-center space-x-3 bg-obsidian-950 border border-white/10 rounded-xl p-1.5 w-max">
+                                    <button onclick="adjustQty(-1)" class="w-8 h-8 rounded-lg bg-obsidian-800 text-white flex items-center justify-center hover:bg-obsidian-700 transition-all">-</button>
+                                    <span id="qtyDisplay" class="w-10 text-center font-mono font-bold text-white">${quantity}</span>
+                                    <button onclick="adjustQty(1)" class="w-8 h-8 rounded-lg bg-obsidian-800 text-white flex items-center justify-center hover:bg-obsidian-700 transition-all">+</button>
+                                </div>
+                            </div>
+                            <div class="w-full sm:w-auto text-right">
+                                <span class="block text-xs font-mono text-slate-400">${currentLang === 'id' ? 'Total Subtotal' : 'Total Subtotal'}</span>
+                                <span id="subtotalDisplay" class="text-2xl font-bold font-mono text-amber-400">${formatPrice(currentProduct.priceIDR * quantity, currentProduct.priceUSD * quantity)}</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                            <button onclick="addProductToCart()" ${!isReady ? 'disabled' : ''} class="flex-1 py-4 rounded-2xl ${isReady ? 'bg-obsidian-800 hover:bg-obsidian-700 text-white border border-white/15' : 'bg-obsidian-900 text-slate-600 cursor-not-allowed border border-white/5'} font-semibold text-sm flex items-center justify-center space-x-2 transition-all shadow-md">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span>${currentLang === 'id' ? 'Tambah ke Keranjang' : 'Add to Cart'}</span>
+                            </button>
+                            <button onclick="buyNowWhatsApp()" ${!isReady ? 'disabled' : ''} class="flex-1 py-4 rounded-2xl ${isReady ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/40' : 'bg-obsidian-900 text-slate-600 cursor-not-allowed'} font-semibold text-sm flex items-center justify-center space-x-2 transition-all">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>${currentLang === 'id' ? 'Beli Cepat via WhatsApp' : 'Quick Buy via WhatsApp'}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function adjustQty(delta) {
+            quantity += delta;
+            if (quantity < 1) quantity = 1;
+            if (currentProduct.status === 'ready' && quantity > currentProduct.stock && currentProduct.stock < 900) {
+                quantity = currentProduct.stock;
+            }
+            document.getElementById('qtyDisplay').innerText = quantity;
+            document.getElementById('subtotalDisplay').innerText = formatPrice(currentProduct.priceIDR * quantity, currentProduct.priceUSD * quantity);
+        }
+
+        // Cart & Hybrid WhatsApp Order
+        function addProductToCart() {
+            if (!currentProduct || currentProduct.status !== 'ready') return;
+
+            const existing = cart.find(item => item.id === currentProduct.id);
+            if (existing) {
+                existing.qty += quantity;
+            } else {
+                cart.push({ ...currentProduct, qty: quantity });
+            }
+            updateCartBadge();
+            renderCartItems();
+            toggleCartModal();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            if (totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+            renderCartItems();
+        }
+
+        function renderCartItems() {
+            const list = document.getElementById('cartItemsList');
+            const totalPriceEl = document.getElementById('cartTotalPrice');
+
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-12 text-slate-500">
+                        <i class="fa-solid fa-cart-shopping text-3xl mb-3"></i>
+                        <p class="text-sm">${currentLang === 'id' ? 'Keranjang masih kosong' : 'Cart is empty'}</p>
+                    </div>
+                `;
+                totalPriceEl.innerText = formatPrice(0, 0);
+                return;
+            }
+
+            let totalIDR = 0;
+            let totalUSD = 0;
+            list.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                totalIDR += item.priceIDR * item.qty;
+                totalUSD += item.priceUSD * item.qty;
+
+                const card = document.createElement('div');
+                card.className = 'p-3 rounded-xl bg-obsidian-950 border border-white/10 flex items-center justify-between gap-3';
+                card.innerHTML = `
+                    <div>
+                        <h4 class="text-xs font-bold text-white">${item.name[currentLang]}</h4>
+                        <span class="text-[10px] font-mono text-amber-400">${formatPrice(item.priceIDR, item.priceUSD)} x ${item.qty}</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateCartQty(${index}, -1)" class="w-6 h-6 rounded bg-obsidian-800 text-slate-300 text-xs flex items-center justify-center hover:bg-obsidian-700">-</button>
+                        <span class="text-xs font-mono text-white">${item.qty}</span>
+                        <button onclick="updateCartQty(${index}, 1)" class="w-6 h-6 rounded bg-obsidian-800 text-slate-300 text-xs flex items-center justify-center hover:bg-obsidian-700">+</button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+
+            totalPriceEl.innerText = formatPrice(totalIDR, totalUSD);
+        }
+
+        function updateCartQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function buyNowWhatsApp() {
+            if (!currentProduct || currentProduct.status !== 'ready') return;
+
+            const subIDR = currentProduct.priceIDR * quantity;
+            const subUSD = currentProduct.priceUSD * quantity;
+
+            const orderText = currentLang === 'id' 
+                ? `*ORDER CEPAT VAULT - ARYNX STORE*\n\nHalo Admin, saya ingin memesan:\n\n1. *${currentProduct.name.id}*\n   Jumlah: ${quantity} Unit\n   Subtotal: ${formatPrice(subIDR, subUSD)}\n\nMohon instruksi pembayaran selanjutnya. Terima kasih!`
+                : `*QUICK VAULT ORDER - ARYNX STORE*\n\nHello Admin, I would like to order:\n\n1. *${currentProduct.name.en}*\n   Quantity: ${quantity} Units\n   Subtotal: ${formatPrice(subIDR, subUSD)}\n\nPlease provide payment instructions. Thank you!`;
+
+            const adminPhone = "6281932140239";
+            window.open(`https://wa.me/${adminPhone}?text=${encodeURIComponent(orderText)}`, '_blank');
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return;
+
+            let totalIDR = 0;
+            let totalUSD = 0;
+            let orderText = currentLang === 'id' ? "*ORDER VAULT - ARYNX STORE*\n\nHalo Admin, saya ingin melakukan pemesanan aset digital:\n\n" : "*VAULT ORDER - ARYNX STORE*\n\nHello Admin, I would like to order the following digital assets:\n\n";
+
+            cart.forEach((item, idx) => {
+                const subIDR = item.priceIDR * item.qty;
+                const subUSD = item.priceUSD * item.qty;
+                totalIDR += subIDR;
+                totalUSD += subUSD;
+                orderText += `${idx + 1}. *${item.name[currentLang]}*\n   Jumlah: ${item.qty} | Subtotal: ${formatPrice(subIDR, subUSD)}\n`;
+            });
+
+            orderText += `\n*Total Estimasi: ${formatPrice(totalIDR, totalUSD)}*\n\nMohon petunjuk pembayaran selanjutnya. Terima kasih!`;
+
+            const adminPhone = "6281932140239";
+            window.open(`https://wa.me/${adminPhone}?text=${encodeURIComponent(orderText)}`, '_blank');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <script src="js/product.js"></script>
+    <script src="js/app.js"></script>
+    
+</body>
+</html>

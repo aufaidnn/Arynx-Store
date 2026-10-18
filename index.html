@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYNX STORE</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: {
+                            950: '#07080c',
+                            900: '#0b0f17',
+                            800: '#131822',
+                            700: '#1e2634',
+                            600: '#2d3748',
+                            500: '#4a5568',
+                        },
+                        accent: {
+                            gold: '#d4af37',
+                            goldHover: '#c5a028',
+                            subtle: '#211d13',
+                            cyan: '#38bdf8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #07080c;
+            color: #f0f6fc;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #07080c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e2634;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2d3748;
+        }
+        ::selection {
+            background: #d4af37;
+            color: #07080c;
+        }
+        .glass-panel {
+            background: rgba(19, 24, 34, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(45, 55, 72, 0.6);
+        }
+        .obsidian-glow {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-obsidian-950 text-slate-100 min-h-screen flex flex-col selection:bg-accent-gold selection:text-black">
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="glass-panel px-5 py-3 rounded-xl border border-accent-gold/40 text-sm flex items-center gap-3 shadow-2xl">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-accent-gold"></i>
+            <span id="toast-message" class="text-slate-200">System Notification Active.</span>
+        </div>
+    </div>
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-obsidian-900 border-b border-obsidian-800 text-xs py-2 px-4 text-center text-slate-400 tracking-wider flex justify-center items-center gap-4">
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-accent-gold"></i> <span data-i18n="announcement">Obsidian Secure Encrypted Vault Infrastructure</span></span>
+        <span class="hidden md:inline text-obsidian-700">|</span>
+        <span class="hidden md:inline text-slate-400">Admin WA: <strong class="text-slate-200 mono">+62 819-3214-0239 & +62 822-8227-9982</strong></span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-obsidian-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" onclick="switchView('home')" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-accent-gold/40 flex items-center justify-center text-accent-gold group-hover:border-accent-gold transition-all shadow-inner">
+                    <i class="fa-solid fa-cube text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-bold tracking-widest text-lg text-slate-100 block">ARYNX<span class="text-accent-gold font-light ml-1">STORE</span></span>
+                    <span class="text-[10px] tracking-widest text-slate-400 uppercase mono block -mt-1">Jasa Alomani</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <button onclick="switchView('home')" id="nav-home" class="text-slate-400 hover:text-accent-gold transition-colors pb-1 border-b-2 border-transparent" data-i18n="nav_home">Beranda</button>
+                <button onclick="switchView('catalog')" id="nav-catalog" class="text-slate-400 hover:text-accent-gold transition-colors pb-1 border-b-2 border-transparent" data-i18n="nav_catalog">Katalog</button>
+                <a href="#protocols" onclick="switchView('protocols')" id="nav-protocols" class="text-slate-400 hover:text-accent-gold transition-colors pb-1 border-b-2 border-transparent" data-i18n="nav_protocols">Protokol</a>
+                <a href="#faq" onclick="switchView('faq')" id="nav-faq" class="text-slate-400 hover:text-accent-gold transition-colors pb-1 border-b-2 border-transparent" data-i18n="nav_faq">FAQ</a>
+                <a href="#testimonials" onclick="switchView('testimonials')" id="nav-testimonials" class="text-slate-400 hover:text-accent-gold transition-colors pb-1 border-b-2 border-transparent">Testrynx</a>
+                <a href="#warranty" onclick="switchView('warranty')" id="nav-warranty" class="text-slate-400 hover:text-accent-gold transition-colors pb-1 border-b-2 border-transparent">Garansi</a>
+            </nav>
+
+            <!-- Utilities: Currency, Lang, Cart -->
+            <div class="flex items-center gap-3">
+                <!-- Currency Toggle -->
+                <button onclick="toggleCurrency()" class="px-3 py-1.5 rounded-md bg-obsidian-900 border border-obsidian-700 text-xs font-mono text-slate-300 hover:border-accent-gold/50 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-coins text-accent-gold"></i>
+                    <span id="currency-display">IDR (Rp)</span>
+                </button>
+
+                <!-- Language Toggle -->
+                <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-md bg-obsidian-900 border border-obsidian-700 text-xs font-mono text-slate-300 hover:border-accent-gold/50 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-globe text-accent-gold"></i>
+                    <span id="lang-display">ID</span>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="openCartModal()" class="relative p-2.5 rounded-lg bg-obsidian-900 border border-obsidian-700 text-slate-200 hover:border-accent-gold/50 transition-all" title="Cart">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent-gold text-black font-bold text-[10px] flex items-center justify-center hidden">0</span>
+                </button>
+
+                <!-- Mobile Menu Toggle -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-lg bg-obsidian-900 border border-obsidian-700 text-slate-200">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-obsidian-800 px-4 py-4 space-y-3">
+            <button onclick="switchView('home'); toggleMobileMenu();" class="block w-full text-left py-2 text-slate-300 hover:text-accent-gold" data-i18n="nav_home">Home</button>
+            <button onclick="switchView('catalog'); toggleMobileMenu();" class="block w-full text-left py-2 text-slate-300 hover:text-accent-gold" data-i18n="nav_catalog">Catalog</button>
+            <a href="#protocols" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-accent-gold" data-i18n="nav_protocols">Protocols</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-accent-gold" data-i18n="nav_faq">FAQ</a>
+            <a href="#testimonials" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-accent-gold">Testrynx</a>
+            <a href="#warranty" onclick="switchView('home')" class="text-slate-400 hover:text-accent-gold transition-colors pb-1">Garansi</a><a href="#warranty" onclick="switchView('home')" class="text-slate-400 hover:text-accent-gold transition-colors pb-1">Garansi</a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow">
+
+        <!-- ================= VIEW: HOME ================= -->
+        <div id="view-home" class="space-y-24 pb-20">
+            <!-- Hero Section -->
+            <section class="relative pt-20 pb-32 overflow-hidden border-b border-obsidian-800">
+                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-obsidian-900 border border-accent-gold/30 text-accent-gold text-xs font-mono tracking-wide">
+                        <i class="fa-solid fa-lock text-[10px]"></i>
+                        <span data-i18n="hero_badge">PREMIUM LOWKEY DIGITAL ASSET VAULT</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-100 max-w-4xl mx-auto leading-tight">
+                        <span data-i18n="hero_title_1">Encrypted Access &</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold via-yellow-200 to-amber-500" data-i18n="hero_title_2">Digital Scalability.</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto font-normal leading-relaxed" data-i18n="hero_desc">
+                        Pusat penyedia nomor kosong telekomunikasi global, verifikasi aplikasi instan, serta infrastruktur peningkatan sosial media berstandar tinggi. Cepat, privat, dan aman.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                        <button onclick="switchView('catalog')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-accent-gold hover:bg-accent-goldHover text-black font-semibold tracking-wide transition-all shadow-lg shadow-accent-gold/10 flex items-center justify-center gap-3 group">
+                            <span data-i18n="btn_explore">Access Catalog</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        <a href="https://wa.me/6281932140239?text=Halo%20ARYNX%20STORE,%20saya%20ingin%20konsultasi%20kebutuhan%20sosmed." target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-obsidian-900 hover:bg-obsidian-800 border border-obsidian-700 text-slate-200 font-medium transition-all flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                            <span data-i18n="btn_wa_admin">Direct WhatsApp Admin</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Stats -->
+                    <div class="pt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto border-t border-obsidian-800/80 mt-16">
+                        <div class="glass-panel p-4 rounded-xl text-center">
+                            <div class="text-2xl font-bold text-accent-gold mono">100%</div>
+                            <div class="text-xs text-slate-400 mt-1" data-i18n="stat_fresh">Fresh & Secure Stock</div>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl text-center">
+                            <div class="text-2xl font-bold text-slate-100 mono">24/7</div>
+                            <div class="text-xs text-slate-400 mt-1" data-i18n="stat_support">Instant Delivery Protocol</div>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl text-center">
+                            <div class="text-2xl font-bold text-accent-gold mono">50+</div>
+                            <div class="text-xs text-slate-400 mt-1" data-i18n="stat_countries">Global Country Nodes</div>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl text-center">
+                            <div class="text-2xl font-bold text-slate-100 mono">4.9/5</div>
+                            <div class="text-xs text-slate-400 mt-1" data-i18n="stat_rating">Trusted Client Score</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Categories (Nomor Kosong & Sosmed) -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                    <div>
+                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2" data-i18n="cat_subtitle">Vault Sectors</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-100" data-i18n="cat_title">Select Operational Sector</h2>
+                    </div>
+                    <button onclick="switchView('catalog')" class="mt-4 md:mt-0 text-sm font-medium text-accent-gold hover:underline flex items-center gap-2">
+                        <span data-i18n="view_all">View Full Database</span> <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Category 1: Nomor Kosong -->
+                    <div onclick="filterByCategory('nomor-kosong')" class="glass-panel p-8 rounded-2xl border border-obsidian-700 hover:border-accent-gold/50 transition-all cursor-pointer group relative overflow-hidden obsidian-glow">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-accent-gold/5 rounded-full blur-2xl group-hover:bg-accent-gold/10 transition-all"></div>
+                        <div class="w-14 h-14 rounded-xl bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-sim-card"></i>
+                        </div>
+                        <span class="text-xs font-mono text-accent-gold tracking-wider uppercase">Sector 01</span>
+                        <h3 class="text-2xl font-bold text-slate-100 mt-1 mb-3" data-i18n="sec_nokos_title">Nomor Kosong (NoKos)</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6" data-i18n="sec_nokos_desc">
+                            Telegram (Fresh, Fresh Non-Surel, Non-Fresh Surel, Luar Negeri/Indo), WhatsApp (Garansi/Non-Garansi), dan Semua Aplikasi (Instagram, Line, Shopee, Ganti Nomor Telegram, dll).
+                        </p>
+                        <div class="flex items-center gap-2 text-sm font-medium text-accent-gold group-hover:translate-x-1 transition-transform">
+                            <span data-i18n="browse_nokos">Browse NoKos Database</span> <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: Kebutuhan Sosmed -->
+                    <div onclick="filterByCategory('sosmed')" class="glass-panel p-8 rounded-2xl border border-obsidian-700 hover:border-accent-gold/50 transition-all cursor-pointer group relative overflow-hidden obsidian-glow">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-accent-gold/5 rounded-full blur-2xl group-hover:bg-accent-gold/10 transition-all"></div>
+                        <div class="w-14 h-14 rounded-xl bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <span class="text-xs font-mono text-accent-gold tracking-wider uppercase">Sector 02</span>
+                        <h3 class="text-2xl font-bold text-slate-100 mt-1 mb-3" data-i18n="sec_sosmed_title">Kebutuhan Sosmed & Growth</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6" data-i18n="sec_sosmed_desc">
+                            TikTok, IG, Telegram, WhatsApp, Shopee, X (Twitter), LinkedIn. Layanan followers, likes, react, views, dan social engagement berkualitas tinggi.
+                        </p>
+                        <div class="flex items-center gap-2 text-sm font-medium text-accent-gold group-hover:translate-x-1 transition-transform">
+                            <span data-i18n="browse_sosmed">Browse Social Nodes</span> <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Featured Grid -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-1" data-i18n="featured_sub">Top Assets</span>
+                        <h2 class="text-2xl font-bold text-slate-100" data-i18n="featured_title">Popular Vault Items</h2>
+                    </div>
+                    <button onclick="switchView('catalog')" class="text-sm text-slate-400 hover:text-accent-gold" data-i18n="view_all">View All →</button>
+                </div>
+                <div id="featured-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Dynamic Rendered -->
+                </div>
+            </section>
+
+            <!-- Protocols Section -->
+            <section id="protocols" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-obsidian-700 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 text-accent-gold/10 text-8xl font-mono pointer-events-none">
+                        <i class="fa-solid fa-shield"></i>
+                    </div>
+                    <div class="max-w-2xl mb-12">
+                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2" data-i18n="protocol_sub">System Standards</span>
+                        <h2 class="text-3xl font-bold text-slate-100 mb-4" data-i18n="protocol_title">The ARYNX Operational Protocol</h2>
+                        <p class="text-slate-400 text-sm" data-i18n="protocol_desc">Dirancang dengan prinsip lowkey, privasi tingkat lanjut, serta sistem order hibrida yang efisien.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold text-lg">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-100" data-i18n="feat_1_title">Hybrid Ordering</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_1_desc">Pilih produk, masukkan ke keranjang, dan langsung kirim pesanan otomatis via WhatsApp admin atau checkout instan.</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold text-lg">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-100" data-i18n="feat_2_title">Manual Stock Control</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_2_desc">Ketersediaan stok diawasi ketat secara manual oleh admin untuk menjamin keaslian dan kesegaran akun.</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold text-lg">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-100" data-i18n="feat_3_title">Bilingual & Multi-Currency</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_3_desc">Dukungan penuh bahasa Indonesia/English serta konversi mata uang IDR & USD secara real-time.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2" data-i18n="faq_sub">Knowledge Base</span>
+                    <h2 class="text-3xl font-bold text-slate-100" data-i18n="faq_title">Frequently Asked Questions</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="glass-panel p-6 rounded-2xl border border-obsidian-700">
+                        <h4 class="font-bold text-slate-200 mb-2 flex items-center justify-between">
+                            <span data-i18n="faq_q1">Bagaimana cara memesan produk di ARYNX STORE?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                        </h4>
+                        <p class="text-sm text-slate-400" data-i18n="faq_a1">Anda dapat memilih produk melalui katalog, lalu klik "Order WhatsApp" atau masukkan ke keranjang. Format pesanan akan otomatis terkirim ke WhatsApp Admin kami.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl border border-obsidian-700">
+                        <h4 class="font-bold text-slate-200 mb-2 flex items-center justify-between">
+                            <span data-i18n="faq_q2">Bagaimana status stok nomor kosong dan sosmed diperbarui?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                        </h4>
+                        <p class="text-sm text-slate-400" data-i18n="faq_a2">Stok dikontrol secara manual oleh admin. Real-time ketersediaan tertera pada badge tiap produk dalam database.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl border border-obsidian-700">
+                        <h4 class="font-bold text-slate-200 mb-2 flex items-center justify-between">
+                            <span data-i18n="faq_q3">Apakah ada garansi untuk nomor kosong telegram atau whatsapp?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                        </h4>
+                        <p class="text-sm text-slate-400" data-i18n="faq_a3">Tersedia opsi varian fresh non-surel, fresh dengan surel, serta garansi login pertama sesuai deskripsi produk.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= VIEW: CATALOG ================= -->
+        <div id="view-catalog" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-obsidian-800 pb-6">
+                <div>
+                    <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-1" data-i18n="cat_header_sub">Database Inventory</span>
+                    <h1 class="text-3xl font-bold text-slate-100" data-i18n="cat_header_title">ARYNX Vault Catalog</h1>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="relative">
+                        <i class="fa-solid fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="Search assets (Telegram, IG, TikTok...)" class="pl-10 pr-4 py-2.5 rounded-xl bg-obsidian-900 border border-obsidian-700 text-sm text-slate-200 focus:outline-none focus:border-accent-gold w-full sm:w-80">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Categories -->
+        <div class="flex flex-wrap gap-2 pb-2">
+            <button onclick="setFilter('all')" id="filter-btn-all" class="px-4 py-2 rounded-xl text-xs font-medium bg-accent-gold text-black transition-all">All Assets</button>
+            <button onclick="setFilter('nomor-kosong')" id="filter-btn-nomor-kosong" class="px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-900 border border-obsidian-700 text-slate-300 hover:border-accent-gold transition-all">Nomor Kosong (NoKos)</button>
+            <button onclick="setFilter('sosmed')" id="filter-btn-sosmed" class="px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-900 border border-obsidian-700 text-slate-300 hover:border-accent-gold transition-all">Kebutuhan Sosmed</button>
+        </div>
+
+            <!-- Products Grid -->
+            <div id="catalog-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically Rendered -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ================= PRODUCT DETAIL MODAL ================= -->
+    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="glass-panel w-full max-w-2xl rounded-3xl border border-obsidian-700 p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-slate-400 hover:text-slate-100 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modal-content" class="space-y-6">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= CART / CHECKOUT DRAWER ================= -->
+    <div id="cart-modal" class="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-sm hidden">
+        <div class="glass-panel w-full max-w-md h-full border-l border-obsidian-700 p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-obsidian-800">
+                    <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-accent-gold"></i> <span data-i18n="cart_title">Vault Order Cart</span>
+                    </h3>
+                    <button onclick="closeCartModal()" class="text-slate-400 hover:text-slate-100"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="cart-items-container" class="py-4 space-y-4 overflow-y-auto max-h-[60vh]">
+                    <!-- Cart Items -->
+                </div>
+            </div>
+
+            <div class="border-t border-obsidian-800 pt-4 space-y-4">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-slate-400" data-i18n="cart_total">Total Estimated:</span>
+                    <span id="cart-total-price" class="font-bold text-accent-gold text-lg mono">Rp 0</span>
+                </div>
+                <button onclick="checkoutWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold tracking-wide transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span data-i18n="btn_checkout_wa">Send Order via WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+            <!-- ================= TESTIMONIALS / INSTAGRAM PROOF ================= -->
+        <section id="testimonials" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        </section>
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                    <div>
+                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2">Social Proof</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-100">Client Reviews & Testimonials</h2>
+                    </div>
+                </div>
+
+                <!-- 4 Screenshot Chat Preview -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Testi 1 -->
+                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
+                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
+                            <img src="assets/testrynx-1.jpg" alt="Testimoni 1" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Testi 2 -->
+                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
+                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
+                            <img src="assets/testrynx-2.jpg" alt="Testimoni 2" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Testi 3 -->
+                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
+                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
+                            <img src="assets/testrynx-3.jpg" alt="Testimoni 3" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Testi 4 -->
+                    <div class="glass-panel p-4 rounded-2xl border border-obsidian-700 group">
+                        <div class="aspect-[9/16] rounded-xl bg-obsidian-900 border border-obsidian-800 flex items-center justify-center overflow-hidden relative">
+                            <img src="assets/testrynx-4.jpg" alt="Testimoni 4" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tombol Tautan Menuju @testrynx -->
+                <div class="text-center">
+                    <a href="https://instagram.com/jasa_alomanipr" target="_blank" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-obsidian-900 hover:bg-obsidian-800 border border-accent-gold/40 text-accent-gold text-sm font-medium transition-all shadow-lg group">
+                        <i class="fa-brands fa-instagram text-lg group-hover:scale-110 transition-transform"></i>
+                        <span>Lihat Semua Testimoni Selengkapnya di <strong class="text-slate-100">@testrynx</strong></span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </section>
+
+        <!-- Warranty & Guarantee Policy Section -->
+            <section id="warranty" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-obsidian-700 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 text-accent-gold/10 text-8xl font-mono pointer-events-none">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="max-w-2xl mb-10">
+                        <span class="text-xs font-mono text-accent-gold tracking-widest uppercase block mb-2">Protection Protocol</span>
+                        <h2 class="text-3xl font-bold text-slate-100 mb-3">Kebijakan Garansi & Ketentuan Layanan</h2>
+                        <p class="text-slate-400 text-sm">Komitmen transparansi dan keamanan transaksi digital di ARYNX STORE.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Poin 1 -->
+                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
+                                <i class="fa-solid fa-check-to-slot"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-200 text-base">Garansi Login Pertama</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Setiap produk nomor kosong (Telegram/WhatsApp) bergaransi saat pertama kali login sesuai deskripsi varian produk (Fresh/Non-Surel/Surel). Pastikan langsung melakukan pengecekan sesuai instruksi.
+                            </p>
+                        </div>
+
+                        <!-- Poin 2 -->
+                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-200 text-base">Bantuan & Klaim Kendala</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Jika menemui kendala pada akun atau pengiriman kebutuhan sosmed, Anda dapat langsung menghubungi admin resmi kami via WhatsApp dengan menyertakan bukti screenshot/rekaman layar.
+                            </p>
+                        </div>
+
+                        <!-- Poin 3 -->
+                        <div class="bg-obsidian-900/60 p-6 rounded-2xl border border-obsidian-800 space-y-3">
+                            <div class="w-10 h-10 rounded-lg bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold">
+                                <i class="fa-solid fa-user-secret"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-200 text-base">Privasi & Keamanan</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Seluruh data transaksi dan informasi akun pelanggan dijaga kerahasiaannya dengan sistem operasional lowkey dan aman berstandar digital.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+    <!-- Footer -->
+    <footer class="bg-obsidian-900 border-t border-obsidian-800 mt-20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div class="space-y-4 md:col-span-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-obsidian-950 border border-accent-gold/40 flex items-center justify-center text-accent-gold">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <span class="font-bold tracking-widest text-slate-100">ARYNX STORE</span>
+                </div>
+                <p class="text-xs text-slate-400 max-w-sm leading-relaxed" data-i18n="footer_desc">
+                    Obsidian Vault Infrastructure. Penyedia nomor kosong & kebutuhan sosmed premium dengan sistem hibrida terenkripsi.
+                </p>
+                <div class="text-xs text-slate-400 mono">
+                    Admin WA 1: <a href="https://wa.me/6281932140239" target="_blank" class="text-accent-gold hover:underline">+62 819-3214-0239</a>
+                    Admin WA 2: <a href="https://wa.me/6282282279982" target="_blank" class="text-accent-gold hover:underline">+62 822-8227-9982</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-mono uppercase text-accent-gold tracking-widest mb-4" data-i18n="footer_links">Quick Access</h4>
+                <ul class="space-y-2 text-xs text-slate-400">
+                    <li><button onclick="switchView('home')" class="hover:text-accent-gold">Home</button></li>
+                    <li><button onclick="switchView('catalog')" class="hover:text-accent-gold">Catalog Database</button></li>
+                    <li><a href="#protocols" class="hover:text-accent-gold" data-i18n="nav_protocols">Protocols</a></li>
+                    <li><a href="#faq" class="hover:text-accent-gold" data-i18n="nav_faq">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-mono uppercase text-accent-gold tracking-widest mb-4" data-i18n="footer_security">Security Status</h4>
+                <div class="glass-panel p-3 rounded-xl border border-obsidian-700 text-xs space-y-1 text-slate-400">
+                    <div class="flex items-center gap-2 text-emerald-400">
+                        <i class="fa-solid fa-circle text-[8px]"></i> <span>Node 01: Operational</span>
+                    </div>
+                    <div class="text-[10px] text-slate-400">Encryption: AES-256 Validated</div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-obsidian-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400">
+            <p>&copy; 2026 ARYNX STORE. Sub-Unit Jasa Alomani. All rights reserved.</p>
+            <p class="mt-2 sm:mt-0 font-mono">Bilingual ID/EN | IDR/USD</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // ================= STATE MANAGEMENT =================
+        let currentLang = 'id';
+        let currentCurrency = 'idr';
+        let currentFilter = 'all';
+        let cart = [];
+
+        // Bilingual Dictionary
+        const translations = {
+            id: {
+                announcement: "Obsidian Secure Encrypted Vault Infrastructure",
+                nav_home: "Beranda",
+                nav_catalog: "Katalog",
+                nav_protocols: "Protokol",
+                nav_faq: "FAQ",
+                hero_badge: "PREMIUM LOWKEY DIGITAL ASSET VAULT",
+                hero_title_1: "Encrypted Access &",
+                hero_title_2: "Digital Scalability.",
+                hero_desc: "Pusat penyedia nomor kosong telekomunikasi global, verifikasi aplikasi instan, serta infrastruktur peningkatan sosial media berstandar tinggi. Cepat, privat, dan aman.",
+                btn_explore: "Access Catalog",
+                btn_wa_admin: "Direct WhatsApp Admin",
+                stat_fresh: "Fresh & Secure Stock",
+                stat_support: "Instant Delivery Protocol",
+                stat_countries: "Global Country Nodes",
+                stat_rating: "Trusted Client Score",
+                cat_subtitle: "Vault Sectors",
+                cat_title: "Select Operational Sector",
+                sec_nokos_title: "Nomor Kosong (NoKos)",
+                sec_nokos_desc: "Telegram (Fresh, Fresh Non-Surel, Non-Fresh Surel, Luar Negeri/Indo), WhatsApp (Garansi/Non-Garansi), dan Semua Aplikasi (Instagram, Line, Shopee, Ganti Nomor Telegram, dll).",
+                browse_nokos: "Browse NoKos Database",
+                sec_sosmed_title: "Kebutuhan Sosmed & Growth",
+                sec_sosmed_desc: "TikTok, IG, Telegram, WhatsApp, Shopee, X (Twitter), LinkedIn. Layanan followers, likes, react, views, dan social engagement berkualitas tinggi.",
+                browse_sosmed: "Browse Social Needs",
+                featured_sub: "Top Assets",
+                featured_title: "Popular Vault Items",
+                protocol_sub: "System Standards",
+                protocol_title: "The ARYNX Operational Protocol",
+                protocol_desc: "Dirancang dengan prinsip lowkey, privasi tingkat lanjut, serta sistem order hibrida yang efisien.",
+                feat_1_title: "Hybrid Ordering",
+                feat_1_desc: "Pilih produk, masukkan ke keranjang, dan langsung kirim pesanan otomatis via WhatsApp admin atau checkout instan.",
+                feat_2_title: "Manual Stock Control",
+                feat_2_desc: "Ketersediaan stok diawasi ketat secara manual oleh admin untuk menjamin keaslian dan kesegaran akun.",
+                feat_3_title: "Bilingual & Multi-Currency",
+                feat_3_desc: "Dukungan penuh bahasa Indonesia/English serta konversi mata uang IDR & USD secara real-time.",
+                faq_sub: "Knowledge Base",
+                faq_title: "Frequently Asked Questions",
+                faq_q1: "Bagaimana cara memesan produk di ARYNX STORE?",
+                faq_a1: "Anda dapat memilih produk melalui katalog, lalu klik 'Order WhatsApp' atau masukkan ke keranjang. Format pesanan akan otomatis terkirim ke WhatsApp Admin kami.",
+                faq_q2: "Bagaimana status stok nomor kosong dan sosmed diperbarui?",
+                faq_a2: "Stok dikontrol secara manual oleh admin. Real-time ketersediaan tertera pada badge tiap produk dalam database.",
+                faq_q3: "Apakah ada garansi untuk nomor kosong telegram atau whatsapp?",
+                faq_a3: "Tersedia opsi varian fresh non-surel, fresh dengan surel, serta garansi login pertama sesuai deskripsi produk.",
+                cat_header_sub: "Database Inventory",
+                cat_header_title: "ARYNX Vault Catalog",
+                filter_all: "All Assets",
+                filter_nokos: "Nomor Kosong (NoKos)",
+                filter_sosmed: "Kebutuhan Sosmed",
+                view_all: "View All →",
+                cart_title: "Vault Order Cart",
+                cart_total: "Total Estimated:",
+                btn_checkout_wa: "Send Order via WhatsApp",
+                footer_desc: "Obsidian Vault Infrastructure. Penyedia nomor kosong & kebutuhan sosmed premium dengan sistem hibrida terenkripsi.",
+                footer_links: "Quick Access",
+                footer_security: "Security Status"
+            },
+            en: {
+                announcement: "Obsidian Secure Encrypted Vault Infrastructure",
+                nav_home: "Home",
+                nav_catalog: "Catalog",
+                nav_protocols: "Protocols",
+                nav_faq: "FAQ",
+                hero_badge: "PREMIUM LOWKEY DIGITAL ASSET VAULT",
+                hero_title_1: "Encrypted Access &",
+                hero_title_2: "Digital Scalability.",
+                hero_desc: "Global telecommunication virtual number vault, instant application verification, and high-standard social media growth infrastructure. Fast, private, and secure.",
+                btn_explore: "Access Vault Catalog",
+                btn_wa_admin: "Direct WhatsApp Admin",
+                stat_fresh: "Fresh & Secure Stock",
+                stat_support: "Instant Delivery Protocol",
+                stat_countries: "Global Country Nodes",
+                stat_rating: "Trusted Client Score",
+                cat_subtitle: "Vault Sectors",
+                cat_title: "Select Operational Sector",
+                sec_nokos_title: "Virtual Numbers (NoKos)",
+                sec_nokos_desc: "Telegram (Fresh, Fresh Non-Email, Non-Fresh Email, Foreign/Indo), WhatsApp (Warranty/Non-Warranty), and All Apps (Instagram, Line, Shopee, Telegram Swap, etc.).",
+                browse_nokos: "Browse NoKos Database",
+                sec_sosmed_title: "Social Media & Growth",
+                sec_sosmed_desc: "TikTok, IG, Telegram, WhatsApp, Shopee, X (Twitter), LinkedIn. High quality followers, likes, react, views, and social engagement.",
+                browse_sosmed: "Browse Social Nodes",
+                featured_sub: "Top Assets",
+                featured_title: "Popular Vault Items",
+                protocol_sub: "System Standards",
+                protocol_title: "The ARYNX Operational Protocol",
+                protocol_desc: "Engineered with lowkey principles, advanced privacy, and an efficient hybrid ordering system.",
+                feat_1_title: "Hybrid Ordering",
+                feat_1_desc: "Select products, add to cart, and instantly dispatch automated orders via WhatsApp admin or quick checkout.",
+                feat_2_title: "Manual Stock Control",
+                feat_2_desc: "Stock availability is strictly monitored manually by admins to guarantee account authenticity and freshness.",
+                feat_3_title: "Bilingual & Multi-Currency",
+                feat_3_desc: "Full support for Indonesian/English languages and real-time IDR & USD currency conversion.",
+                faq_sub: "Knowledge Base",
+                faq_title: "Frequently Asked Questions",
+                faq_q1: "How to order products at ARYNX STORE?",
+                faq_a1: "You can select products via the catalog, then click 'WhatsApp Order' or add to cart. The order format will automatically be sent to our WhatsApp Admin at +62 819-3214-0239.",
+                faq_q2: "How is virtual number and social media stock updated?",
+                faq_a2: "Stock is monitored manually by admins. Real-time availability is shown on each product badge in the database.",
+                faq_q3: "Is there any warranty for telegram or whatsapp virtual numbers?",
+                faq_a3: "Fresh non-email, fresh with email, and first-login warranty options are available according to product specifications.",
+                cat_header_sub: "Database Inventory",
+                cat_header_title: "ARYNX Vault Catalog",
+                filter_all: "All Assets",
+                filter_nokos: "Virtual Numbers (NoKos)",
+                filter_sosmed: "Social Media Growth",
+                view_all: "View All →",
+                cart_title: "Vault Order Cart",
+                cart_total: "Total Estimated:",
+                btn_checkout_wa: "Send Order via WhatsApp",
+                footer_desc: "Obsidian Vault Infrastructure. Premium virtual numbers & social media growth provider with encrypted hybrid system.",
+                footer_links: "Quick Access",
+                footer_security: "Security Status"
+            }
+        };
+
+        // ================= INITIALIZATION =================
+        window.addEventListener('DOMContentLoaded', () => {
+            renderFeaturedProducts();
+            renderCatalogProducts();
+            updateLanguageUI();
+        });
+
+function switchView(viewName) {
+            const homeView = document.getElementById('view-home');
+            const catalogView = document.getElementById('view-catalog');
+            
+            const navHome = document.getElementById('nav-home');
+            const navCatalog = document.getElementById('nav-catalog');
+            const navProtocols = document.getElementById('nav-protocols');
+            const navFaq = document.getElementById('nav-faq');
+            const navTestimonials = document.getElementById('nav-testimonials');
+            const navWarranty = document.getElementById('nav-warranty');
+
+            // Daftar semua elemen menu nav
+            const allNavs = [navHome, navCatalog, navProtocols, navFaq, navTestimonials, navWarranty];
+
+            // Reset semua nav menjadi tidak aktif (warna abu-abu, border transparan)
+            allNavs.forEach(nav => {
+                if (nav) {
+                    nav.classList.remove('text-accent-gold', 'border-accent-gold');
+                    nav.classList.add('text-slate-400', 'border-transparent');
+                }
+            });
+
+            // Aktifkan nav dan view sesuai yang dipilih
+            if (viewName === 'catalog') {
+                homeView.classList.add('hidden');
+                catalogView.classList.remove('hidden');
+                if (navCatalog) {
+                    navCatalog.classList.add('text-accent-gold', 'border-accent-gold');
+                    navCatalog.classList.remove('text-slate-400', 'border-transparent');
+                }
+                renderCatalogProducts();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Untuk home, protocols, faq, testimonials (posisi di halaman home)
+                homeView.classList.remove('hidden');
+                catalogView.classList.add('hidden');
+
+                let activeNav = navHome;
+                if (viewName === 'protocols') activeNav = navProtocols;
+                else if (viewName === 'faq') activeNav = navFaq;
+                else if (viewName === 'testimonials') activeNav = navTestimonials;
+                else if  (viewName === 'warranty') activeNav = navWarranty;
+
+                if (activeNav) {
+                    activeNav.classList.add('text-accent-gold', 'border-accent-gold');
+                    activeNav.classList.remove('text-slate-400', 'border-transparent');
+                }
+
+                if (viewName === 'home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // ================= LANGUAGE & CURRENCY TOGGLE =================
+        function toggleLanguage() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            document.getElementById('lang-display').innerText = currentLang.toUpperCase();
+            updateLanguageUI();
+            renderFeaturedProducts();
+            renderCatalogProducts();
+            showToast(currentLang === 'id' ? 'Bahasa diubah ke Indonesia' : 'Language switched to English', 'fa-globe');
+        }
+
+        function updateLanguageUI() {
+            const keys = document.querySelectorAll('[data-i18n]');
+            keys.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+        }
+
+        function toggleCurrency() {
+            currentCurrency = currentCurrency === 'idr' ? 'usd' : 'idr';
+            document.getElementById('currency-display').innerText = currentCurrency === 'idr' ? 'IDR (Rp)' : 'USD ($)';
+            renderFeaturedProducts();
+            renderCatalogProducts();
+            renderCart();
+            showToast(currentCurrency === 'idr' ? 'Mata uang: IDR (Rupiah)' : 'Currency: USD (Dollar)', 'fa-coins');
+        }
+
+        function formatPrice(pIDR, pUSD) {
+            if (currentCurrency === 'idr') {
+                return 'Rp ' + pIDR.toLocaleString('id-ID');
+            } else {
+                return '$ ' + pUSD.toFixed(2);
+            }
+        }
+
+        // ================= RENDERING PRODUCTS =================
+        function renderFeaturedProducts() {
+            const grid = document.getElementById('featured-products-grid');
+            let featured = products.filter(p => p.featured === true);
+            if (featured.length === 0) {
+                featured = products.slice(0,4);
+            }
+            grid.innerHTML = featured.map(p => productCardHTML(p)).join('');
+        }
+
+        function renderCatalogProducts() {
+            const grid = document.getElementById('catalog-products-grid');
+            const searchQuery = document.getElementById('search-input') ? document.getElementById('search-input').value.toLowerCase() : '';
+            
+            let filtered = products;
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
+            if (searchQuery) {
+                filtered = filtered.filter(p => {
+                    const name = (currentLang === 'id' ? p.name.id : p.name.en).toLowerCase();
+                    const desc = (currentLang === 'id' ? p.desc.id : p.desc.en).toLowerCase();
+                    return name.includes(searchQuery) || desc.includes(searchQuery);
+                });
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-16 text-center text-slate-500 font-mono text-sm">No digital assets found in database.</div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => productCardHTML(p)).join('');
+        }
+
+        function productCardHTML(p) {
+            const name = currentLang === 'id' ? p.name.id : p.name.en;
+            const desc = currentLang === 'id' ? p.desc.id : p.desc.en;
+            const price = formatPrice(p.priceIDR, p.priceUSD);
+            
+            return `
+                <div class="glass-panel p-6 rounded-2xl border border-obsidian-700 hover:border-accent-gold/50 transition-all flex flex-col justify-between group obsidian-glow">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-md bg-obsidian-900 border border-obsidian-700 text-[10px] font-mono text-accent-gold uppercase tracking-wider">${p.badge}</span>
+                            <span class="text-xs font-mono text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-circle text-[6px]"></i> Stock: ${p.stock}</span>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold text-xl mb-4 group-hover:scale-105 transition-transform">
+                            <!-- GUNAKAN fa-brands DI SINI AGAR LOGO SOSMED MUNCUL -->
+                            <i class="fa-brands ${p.icon}"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-lg mb-2 group-hover:text-accent-gold transition-colors">${name}</h3>
+                        <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-4">${desc}</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4 pt-4 border-t border-obsidian-800">
+                            <span class="text-xs text-slate-400">Price:</span>
+                            <span class="font-bold text-accent-gold text-base mono">${price}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openProductModal('${p.id}')" class="w-full py-2.5 rounded-xl bg-obsidian-900 hover:bg-obsidian-800 border border-obsidian-700 text-xs font-medium text-slate-200 transition-all">
+                                Details
+                            </button>
+                            <button onclick="orderDirectWhatsApp('${p.id}')" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-medium text-white transition-all flex items-center justify-center gap-1.5 shadow-md">
+                                <i class="fa-brands fa-whatsapp"></i> Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setFilter(cat) {
+            currentFilter = cat;
+            // Mengatur warna tombol aktif
+            document.querySelectorAll('[id^="filter-btn-"]').forEach(btn => {
+                btn.className = "px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-900 border border-obsidian-700 text-slate-300 hover:border-accent-gold transition-all";
+            });
+            const activeBtn = document.getElementById(`filter-btn-${cat}`);
+            if (activeBtn) {
+                activeBtn.className = "px-4 py-2 rounded-xl text-xs font-medium bg-accent-gold text-black transition-all";
+            }
+            renderCatalogProducts();
+        }
+
+        function filterByCategory(cat) {
+            switchView('catalog');
+            setFilter(cat);
+        }
+
+        function handleSearch() {
+            renderCatalogProducts();
+        }
+
+        // ================= PRODUCT DETAIL MODAL =================
+        function openProductModal(productId) {
+            const p = products.find(item => item.id === productId);
+            if (!p) return;
+
+            const name = currentLang === 'id' ? p.name.id : p.name.en;
+            const desc = currentLang === 'id' ? p.desc.id : p.desc.en;
+            const price = formatPrice(p.priceIDR, p.priceUSD);
+            const iconClass = p.icon || 'fa-chart-line';
+
+            // Menangani specs baik berbentuk Array maupun Objek secara aman
+            let specsHTML = '';
+            if (Array.isArray(p.specs)) {
+                specsHTML = p.specs.map(s => `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-gold text-[10px]"></i> ${s}</li>`).join('');
+            } else if (typeof p.specs === 'object' && p.specs !== null) {
+                specsHTML = Object.entries(p.specs).map(([key, val]) => `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-gold text-[10px]"></i> <strong class="capitalize text-slate-300">${key}:</strong> ${val}</li>`).join('');
+            }
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-obsidian-900 border border-obsidian-700 flex items-center justify-center text-accent-gold text-2xl">
+                        <i class="fa-brands ${iconClass}"></i>
+                    </div>
+                    <div>
+                        <span class="px-2.5 py-1 rounded-md bg-obsidian-900 border border-obsidian-700 text-[10px] font-mono text-accent-gold uppercase tracking-wider">${p.badge}</span>
+                        <h2 class="text-2xl font-bold text-slate-100 mt-1">${name}</h2>
+                    </div>
+                </div>
+
+                <p class="text-sm text-slate-300 leading-relaxed">${desc}</p>
+
+                <div class="space-y-2">
+                    <h4 class="text-xs font-mono text-accent-gold uppercase tracking-wider">Specifications & Protocols</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        ${specsHTML}
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-4 rounded-xl border border-obsidian-700 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-slate-400 block">Stock Status (Manual)</span>
+                        <span class="text-sm font-mono font-bold text-emerald-400">${p.stock} units available</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block">Price</span>
+                        <span class="text-lg font-bold text-accent-gold mono">${price}</span>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-2">
+                    <button onclick="addToCart('${p.id}')" class="flex-1 py-3.5 rounded-xl bg-obsidian-900 hover:bg-obsidian-800 border border-accent-gold/50 text-accent-gold font-medium text-sm transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+                    </button>
+                    <button onclick="orderDirectWhatsApp('${p.id}')" class="flex-1 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition-all flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Direct WA Order
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // ================= HYBRID CART & ORDER SYSTEM =================
+        function addToCart(productId) {
+            const p = products.find(item => item.id === productId);
+            if (!p) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...p, qty: 1 });
+            }
+
+            updateCartBadge();
+            closeProductModal();
+            showToast('Product added to Vault Cart', 'fa-bag-shopping');
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            if (totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function openCartModal() {
+            renderCart();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="py-12 text-center text-slate-500 text-xs font-mono">Cart is empty.</div>`;
+                document.getElementById('cart-total-price').innerText = formatPrice(0, 0);
+                return;
+            }
+
+            let totalPriceIDR = 0;
+            let totalPriceUSD = 0;
+
+            container.innerHTML = cart.map((item, index) => {
+                // Memperbaiki pembacaan nama agar mendukung format objek maupun string langsung
+                const name = typeof item.name === 'object' ? (currentLang === 'id' ? item.name.id : item.name.en) : (currentLang === 'id' ? item.nameID : item.nameEN);
+                totalPriceIDR += item.priceIDR * item.qty;
+                totalPriceUSD += item.priceUSD * item.qty;
+
+                return `
+                    <div class="glass-panel p-4 rounded-xl border border-obsidian-700 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-bold text-slate-200 text-sm">${name}</h4>
+                            <span class="text-xs text-accent-gold mono">${formatPrice(item.priceIDR, item.priceUSD)} x ${item.qty}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="adjustQty(${index}, -1)" class="w-7 h-7 rounded-lg bg-obsidian-900 border border-obsidian-700 text-slate-300">-</button>
+                            <span class="text-xs font-mono text-slate-100">${item.qty}</span>
+                            <button onclick="adjustQty(${index}, 1)" class="w-7 h-7 rounded-lg bg-obsidian-900 border border-obsidian-700 text-slate-300">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cart-total-price').innerText = formatPrice(totalPriceIDR, totalPriceUSD);
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                showToast('Keranjang order masih kosong', 'fa-triangle-exclamation');
+                return;
+            }
+
+            let totalPriceIDR = 0;
+            let totalPriceUSD = 0;
+            let itemsSummary = cart.map(item => {
+                const name = typeof item.name === 'object' ? (currentLang === 'id' ? item.name.id : item.name.en) : (currentLang === 'id' ? item.nameID : item.nameEN);
+                totalPriceIDR += item.priceIDR * item.qty;
+                totalPriceUSD += item.priceUSD * item.qty;
+                return `• ${name} (${item.qty}x)`;
+            }).join('%0A');
+
+            const total = formatPrice(totalPriceIDR, totalPriceUSD);
+            const currency = currentCurrency.toUpperCase();
+
+            const message = `Halo Admin ARYNX,%0A%0ASaya ingin checkout pesanan dari Cart:%0A${itemsSummary}%0A%0A*Total Estimasi: ${total}*%0A- Mata Uang: *${currency}*%0A%0AMohon instruksi pembayaran selanjutnya. Terima kasih.`;
+            window.open(`https://wa.me/6281932140239?text=${message}`, '_blank');
+        }
+
+        function adjustQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartBadge();
+            renderCart();
+        }
+
+        function orderDirectWhatsApp(productId) {
+            const p = products.find(item => item.id === productId);
+            if (!p) return;
+
+            const name = currentLang === 'id' ? p.name.id : p.name.en;
+            const price = formatPrice(p.priceIDR, p.priceUSD);
+
+            const message = `Halo Admin ARYNX,%0A%0ASaya ingin memesan produk berikut:%0A- Produk: *${name}*%0A- Harga: *${price}*%0A- Mata Uang: *${currentCurrency.toUpperCase()}*%0A%0AMohon instruksi pembayaran selanjutnya. Terima kasih.`;
+            window.open(`https://wa.me/6281932140239?text=${message}`, '_blank');
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                showToast('Keranjang order masih kosong', 'fa-triangle-exclamation');
+                return;
+            }
+
+            let totalPriceIDR = 0;
+            let totalPriceUSD = 0;
+            let itemsSummary = cart.map(item => {
+                const name = currentLang === 'id' ? item.nameID : item.nameEN;
+                totalPriceIDR += item.priceIDR * item.qty;
+                totalPriceUSD += item.priceUSD * item.qty;
+                return `• ${name} (${item.qty}x)`;
+            }).join('%0A');
+
+            const total = formatPrice(totalPriceIDR, totalPriceUSD);
+
+            const message = `Halo Admin ARYNX,%0A%0ASaya ingin checkout pesanan dari Cart:%0A${itemsSummary}%0A%0A*Total Estimasi: ${total}*%0A%0AMohon instruksi pembayaran selanjutnya. Terima kasih.`;
+            window.open(`https://wa.me/6281932140239?text=${message}`, '_blank');
+        }
+
+        // ================= NOTIFICATION TOAST =================
+        function showToast(message, iconClass = 'fa-circle-check') {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.innerText = message;
+            iconEl.className = `fa-solid ${iconClass} text-accent-gold`;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+
+    <!-- ================= FLOATING WHATSAPP BUTTON ================= -->
+    <a href="https://wa.me/6281932140239?text=Halo%20Admin%20Ary,%20saya%20ingin%20konsultasi%20mengenai%20layanan%20digital." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-2xl shadow-emerald-900/50 hover:scale-110 transition-all duration-300 group"
+       title="Chat Admin WhatsApp">
+       <i class="fa-brands fa-whatsapp text-2xl group-hover:rotate-12 transition-transform"></i>
+       <!-- Tooltip kecil saat kursor diarahkan -->
+       <span class="absolute right-16 bg-obsidian-900 border border-obsidian-700 text-slate-200 text-xs px-3 py-1.5 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-medium">
+           Chat Admin WhatsApp
+       </span>
+    </a>
+
+    <script src="js/product.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

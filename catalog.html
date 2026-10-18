@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk — ARYNX STORE</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: {
+                            950: '#090a0f',
+                            900: '#0f1117',
+                            800: '#161922',
+                            700: '#1f2430',
+                            600: '#2d3343',
+                        },
+                        accent: {
+                            gold: '#d4af37',
+                            goldHover: '#e5c158',
+                            muted: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #090a0f; color: #e2e8f0; }
+        .glass-panel { background: rgba(15, 17, 23, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.07); }
+        .glow-gold { box-shadow: 0 0 25px rgba(212, 175, 55, 0.12); }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #090a0f; }
+        ::-webkit-scrollbar-thumb { background: #1f2430; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2d3343; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500/30 selection:text-amber-200">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-obsidian-900 border-b border-white/5 py-2 px-4 text-xs text-center text-slate-400 font-mono tracking-wider">
+        <span class="text-amber-400 font-semibold">// OBSIDIAN VAULT</span> &bull; Premium Digital Assets &bull; Instant WhatsApp Hybrid Checkout
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand -->
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-obsidian-800 border border-white/10 flex items-center justify-center group-hover:border-amber-500/50 transition-all duration-300">
+                    <i class="fa-solid fa-gem text-amber-400"></i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-widest text-white">ARYNX<span class="text-amber-400">STORE</span></span>
+                    <span class="block text-[10px] font-mono text-slate-400 tracking-wider">VAULT // 0.1</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="index.html" class="text-slate-400 hover:text-white transition-colors" data-i18n="nav_home">Beranda</a>
+                <a href="catalog.html" class="text-amber-400 font-semibold transition-colors" data-i18n="nav_catalog">Katalog</a>
+                <a href="index.html#features" class="text-slate-400 hover:text-white transition-colors" data-i18n="nav_features">Fitur</a>
+                <a href="index.html#faq" class="text-slate-400 hover:text-white transition-colors" data-i18n="nav_faq">FAQ</a>
+            </nav>
+
+            <!-- Utilities / Actions -->
+            <div class="flex items-center space-x-4">
+                <!-- Currency Toggle -->
+                <button onclick="toggleCurrency()" id="currencyBtn" class="px-3 py-1.5 rounded-lg bg-obsidian-800 border border-white/10 text-xs font-mono text-amber-400 hover:border-amber-500/50 transition-all">
+                    IDR (Rp)
+                </button>
+                <!-- Language Toggle -->
+                <button onclick="toggleLang()" id="langBtn" class="px-3 py-1.5 rounded-lg bg-obsidian-800 border border-white/10 text-xs font-mono text-slate-300 hover:border-white/20 transition-all">
+                    ID
+                </button>
+                <!-- Cart Trigger -->
+                <button onclick="toggleCartModal()" class="relative p-2.5 rounded-xl bg-obsidian-800 border border-white/10 text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition-all">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartBadge" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-amber-500 text-obsidian-950 text-[10px] font-bold flex items-center justify-center shadow-md hidden">0</span>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-obsidian-800 border border-white/10 text-slate-300">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-4 border-t border-white/10 bg-obsidian-950/95">
+            <a href="index.html" class="block py-2 text-slate-400 hover:text-white" data-i18n="nav_home">Beranda</a>
+            <a href="catalog.html" class="block py-2 text-amber-400 font-medium" data-i18n="nav_catalog">Katalog</a>
+            <a href="index.html#features" class="block py-2 text-slate-400 hover:text-white" data-i18n="nav_features">Fitur</a>
+            <a href="index.html#faq" class="block py-2 text-slate-400 hover:text-white" data-i18n="nav_faq">FAQ</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        <!-- Header Section -->
+        <div class="mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono mb-3">
+                    <i class="fa-solid fa-vault"></i>
+                    <span data-i18n="badge_vault">Vault Index 2026</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white" data-i18n="catalog_title">Katalog Vault Digital</h1>
+                <p class="text-slate-400 text-sm mt-2 max-w-2xl" data-i18n="catalog_subtitle">Pilih aset digital berkualitas tinggi untuk kebutuhan verifikasi nomor kosong dan peningkatan eksposur sosial media.</p>
+            </div>
+
+            <!-- Search & Quick Controls -->
+            <div class="w-full md:w-80 relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Cari nomor kosong, followers, dll..." class="w-full pl-10 pr-4 py-3 bg-obsidian-900 border border-white/10 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60 transition-all">
+            </div>
+        </div>
+
+        <!-- Filter Category Tabs -->
+        <div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4">
+            <button onclick="setCategory('all')" id="cat-all" class="cat-btn px-4 py-2 rounded-xl text-xs font-medium bg-amber-500 text-obsidian-950 transition-all shadow-md">
+                <i class="fa-solid fa-border-all mr-1.5"></i> <span data-i18n="cat_all">Semua Produk</span>
+            </button>
+            <button onclick="setCategory('tg_empty')" id="cat-tg_empty" class="cat-btn px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-800 text-slate-300 border border-white/10 hover:border-white/20 transition-all">
+                <i class="fa-brands fa-telegram mr-1.5 text-sky-400"></i> <span data-i18n="cat_tg">Nomor Kosong Telegram</span>
+            </button>
+            <button onclick="setCategory('wa_empty')" id="cat-wa_empty" class="cat-btn px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-800 text-slate-300 border border-white/10 hover:border-white/20 transition-all">
+                <i class="fa-brands fa-whatsapp mr-1.5 text-emerald-400"></i> <span data-i18n="cat_wa">Nomor Kosong WhatsApp</span>
+            </button>
+            <button onclick="setCategory('all_empty')" id="cat-all_empty" class="cat-btn px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-800 text-slate-300 border border-white/10 hover:border-white/20 transition-all">
+                <i class="fa-solid fa-shield-halved mr-1.5 text-amber-400"></i> <span data-i18n="cat_all_apps">Semua Aplikasi Lain</span>
+            </button>
+            <button onclick="setCategory('sosmed')" id="cat-sosmed" class="cat-btn px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-800 text-slate-300 border border-white/10 hover:border-white/20 transition-all">
+                <i class="fa-solid fa-chart-line mr-1.5 text-purple-400"></i> <span data-i18n="cat_sosmed">Kebutuhan Sosmed</span>
+            </button>
+        </div>
+
+        <!-- PRODUCTS GRID -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamically populated by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-20">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-obsidian-800 border border-white/10 flex items-center justify-center text-slate-500 text-xl">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-white" data-i18n="empty_title">Produk tidak ditemukan</h3>
+            <p class="text-sm text-slate-400 mt-1" data-i18n="empty_desc">Coba kata kunci lain atau pilih kategori yang berbeda.</p>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-obsidian-900 border-t border-white/10 mt-20 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-obsidian-800 border border-white/10 flex items-center justify-center">
+                    <i class="fa-solid fa-gem text-amber-400 text-xs"></i>
+                </div>
+                <span class="text-sm font-bold tracking-widest text-white">ARYNX<span class="text-amber-400">STORE</span></span>
+            </div>
+            <p class="text-xs text-slate-500 font-mono text-center">
+                &copy; 2026 ARYNX STORE. Obsidian Vault Architecture. All rights reserved.
+            </p>
+            <div class="flex items-center space-x-4 text-slate-400 text-sm">
+                <a href="https://wa.me/6281932140239" target="_blank" class="hover:text-amber-400 transition-colors"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                <a href="https://github.com" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian-950/80 backdrop-blur-md hidden">
+        <div class="bg-obsidian-900 border border-white/10 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl glow-gold">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modalContent">
+                <!-- Dynamically filled -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CART / CHECKOUT DRAWER MODAL -->
+    <div id="cartModal" class="fixed inset-0 z-50 flex justify-end bg-obsidian-950/80 backdrop-blur-md hidden">
+        <div class="bg-obsidian-900 border-l border-white/10 w-full max-w-md h-full flex flex-col p-6 shadow-2xl">
+            <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-cart-shopping text-amber-400"></i>
+                    <span data-i18n="cart_title">Keranjang Order Vault</span>
+                </h3>
+                <button onclick="toggleCartModal()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="cartItemsList" class="flex-grow overflow-y-auto py-4 space-y-3">
+                <!-- Cart items injected here -->
+            </div>
+            <div class="pt-4 border-t border-white/10">
+                <div class="flex justify-between items-center mb-4 text-sm font-semibold text-white">
+                    <span data-i18n="cart_total">Total Estimasi:</span>
+                    <span id="cartTotalPrice" class="text-amber-400 font-mono text-base">Rp 0</span>
+                </div>
+                <button onclick="checkoutWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm flex items-center justify-center space-x-2 transition-all shadow-lg shadow-emerald-900/40">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span data-i18n="btn_checkout_wa">Order via WhatsApp Admin</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // Database Produk (Sesuai Permintaan Lengkap)
+
+        let currentLang = 'id';
+        let currentCurrency = 'IDR';
+        let currentCategory = 'all';
+        let cart = [];
+
+        // Inisialisasi Halaman
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartBadge();
+        });
+
+        // Toggle Bahasa
+        function toggleLang() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            document.getElementById('langBtn').innerText = currentLang.toUpperCase();
+            updateLanguageUI();
+            renderProducts();
+        }
+
+        function updateLanguageUI() {
+            const texts = {
+                id: {
+                    nav_home: 'Beranda', nav_catalog: 'Katalog', nav_features: 'Fitur', nav_faq: 'FAQ',
+                    badge_vault: 'Vault Index 2026', catalog_title: 'Katalog Vault Digital',
+                    catalog_subtitle: 'Pilih aset digital berkualitas tinggi untuk kebutuhan verifikasi nomor kosong dan peningkatan eksposur sosial media.',
+                    cat_all: 'Semua Produk', cat_tg: 'Nomor Kosong Telegram', cat_wa: 'Nomor Kosong WhatsApp',
+                    cat_all_apps: 'Semua Aplikasi Lain', cat_sosmed: 'Kebutuhan Sosmed',
+                    empty_title: 'Produk tidak ditemukan', empty_desc: 'Coba kata kunci lain atau pilih kategori yang berbeda.',
+                    cart_title: 'Keranjang Order Vault', cart_total: 'Total Estimasi:', btn_checkout_wa: 'Order via WhatsApp Admin'
+                },
+                en: {
+                    nav_home: 'Home', nav_catalog: 'Catalog', nav_features: 'Features', nav_faq: 'FAQ',
+                    badge_vault: 'Vault Index 2026', catalog_title: 'Digital Vault Catalog',
+                    catalog_subtitle: 'Choose high-quality digital assets for empty number verification and social media exposure boost.',
+                    cat_all: 'All Products', cat_tg: 'Telegram Empty Numbers', cat_wa: 'WhatsApp Empty Numbers',
+                    cat_all_apps: 'All Other Apps', cat_sosmed: 'Social Media Boost',
+                    empty_title: 'No products found', empty_desc: 'Try another keyword or select a different category.',
+                    cart_title: 'Vault Order Cart', cart_total: 'Estimated Total:', btn_checkout_wa: 'Order via WhatsApp Admin'
+                }
+            };
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (texts[currentLang][key]) {
+                    el.innerText = texts[currentLang][key];
+                }
+            });
+        }
+
+        // Toggle Mata Uang
+        function toggleCurrency() {
+            currentCurrency = currentCurrency === 'IDR' ? 'USD' : 'IDR';
+            document.getElementById('currencyBtn').innerText = currentCurrency === 'IDR' ? 'IDR (Rp)' : 'USD ($)';
+            renderProducts();
+        }
+
+        function formatPrice(pIDR, pUSD) {
+            if (currentCurrency === 'IDR') {
+                return 'Rp ' + pIDR.toLocaleString('id-ID');
+            } else {
+                return '$ ' + pUSD.toFixed(2);
+            }
+        }
+
+        // Filter Kategori
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = 'cat-btn px-4 py-2 rounded-xl text-xs font-medium bg-obsidian-800 text-slate-300 border border-white/10 hover:border-white/20 transition-all';
+            });
+            document.getElementById(`cat-${cat}`).className = 'cat-btn px-4 py-2 rounded-xl text-xs font-medium bg-amber-500 text-obsidian-950 transition-all shadow-md';
+            filterProducts();
+        }
+
+        // Render Produk
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+            const searchKeyword = document.getElementById('searchInput').value.toLowerCase();
+
+            const filtered = products.filter(p => {
+                const matchCat = currentCategory === 'all' || p.category === currentCategory;
+                const matchSearch = p.name.id.toLowerCase().includes(searchKeyword) || p.name.en.toLowerCase().includes(searchKeyword) || p.desc.id.toLowerCase().includes(searchKeyword);
+                return matchCat && matchSearch;
+            });
+
+            grid.innerHTML = '';
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            filtered.forEach(p => {
+                const isReady = p.status === 'ready';
+                const stockText = isReady ? (currentLang === 'id' ? `Stok: ${p.stock}` : `Stock: ${p.stock}`) : (currentLang === 'id' ? 'Stok Kosong' : 'Out of Stock');
+                const badgeText = p.badge[currentLang];
+                const nameText = p.name[currentLang];
+                const descText = p.desc[currentLang];
+
+                const card = document.createElement('div');
+                card.className = 'glass-panel rounded-2xl p-6 flex flex-col justify-between border border-white/10 hover:border-amber-500/40 transition-all duration-300 group';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-mono font-semibold ${isReady ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}">
+                                ${badgeText}
+                            </span>
+                            <span class="text-xs font-mono ${isReady ? 'text-emerald-400' : 'text-slate-500'} flex items-center space-x-1.5">
+                                <span class="w-2 h-2 rounded-full ${isReady ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}"></span>
+                                <span>${stockText}</span>
+                            </span>
+                        </div>
+                        <h3 class="text-base font-bold text-white group-hover:text-amber-400 transition-colors">${nameText}</h3>
+                        <p class="text-xs text-slate-400 mt-2 line-clamp-2">${descText}</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+                        <div>
+                            <span class="block text-[10px] text-slate-500 font-mono uppercase">Harga / Unit</span>
+                            <span class="text-base font-bold font-mono text-white">${formatPrice(p.priceIDR, p.priceUSD)}</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="openProductModal('${p.id}')" class="px-3.5 py-2 rounded-xl bg-obsidian-800 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:border-white/30 transition-all">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button onclick="addToCart('${p.id}')" ${!isReady ? 'disabled' : ''} class="px-4 py-2 rounded-xl text-xs font-semibold ${isReady ? 'bg-amber-500 hover:bg-amber-400 text-obsidian-950 shadow-md' : 'bg-obsidian-800 text-slate-600 cursor-not-allowed'} transition-all flex items-center space-x-1.5">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span>Order</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        // Modal Detail Produk
+        function openProductModal(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+
+            const isReady = p.status === 'ready';
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div class="flex items-center justify-between mb-3">
+                    <span class="px-3 py-1 rounded-full text-[10px] font-mono font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">${p.badge[currentLang]}</span>
+                    <span class="text-xs font-mono text-slate-400">${isReady ? (currentLang==='id'?'Stok Tersedia: '+p.stock:'Stock Available: '+p.stock) : (currentLang==='id'?'Stok Kosong':'Out of Stock')}</span>
+                </div>
+                <h2 class="text-xl font-bold text-white mb-2">${p.name[currentLang]}</h2>
+                <p class="text-sm text-slate-300 mb-6 leading-relaxed">${p.desc[currentLang]}</p>
+                <div class="p-4 rounded-xl bg-obsidian-950 border border-white/10 mb-6 flex items-center justify-between">
+                    <div>
+                        <span class="block text-xs text-slate-500 font-mono">HARGA SATUAN</span>
+                        <span class="text-lg font-bold font-mono text-amber-400">${formatPrice(p.priceIDR, p.priceUSD)}</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-xs text-slate-500 font-mono">GARANSI & STATUS</span>
+                        <span class="text-xs font-medium text-emerald-400">Verified Obsidian Vault</span>
+                    </div>
+                </div>
+                <button onclick="addToCart('${p.id}'); closeModal();" ${!isReady ? 'disabled' : ''} class="w-full py-3 rounded-xl ${isReady ? 'bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-bold shadow-lg' : 'bg-obsidian-800 text-slate-600 cursor-not-allowed'} transition-all text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>${currentLang === 'id' ? 'Masukkan ke Keranjang' : 'Add to Cart'}</span>
+                </button>
+            `;
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        // Cart & Hybrid Order WhatsApp
+        function addToCart(id) {
+            const p = products.find(item => item.id === id);
+            if (!p || p.status !== 'ready') return;
+
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...p, qty: 1 });
+            }
+            updateCartBadge();
+            renderCartItems();
+            toggleCartModal();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            if (totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+            renderCartItems();
+        }
+
+        function renderCartItems() {
+            const list = document.getElementById('cartItemsList');
+            const totalPriceEl = document.getElementById('cartTotalPrice');
+
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-12 text-slate-500">
+                        <i class="fa-solid fa-cart-shopping text-3xl mb-3"></i>
+                        <p class="text-sm">${currentLang === 'id' ? 'Keranjang masih kosong' : 'Cart is empty'}</p>
+                    </div>
+                `;
+                totalPriceEl.innerText = formatPrice(0, 0);
+                return;
+            }
+
+            let totalIDR = 0;
+            let totalUSD = 0;
+            list.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                totalIDR += item.priceIDR * item.qty;
+                totalUSD += item.priceUSD * item.qty;
+
+                const card = document.createElement('div');
+                card.className = 'p-3 rounded-xl bg-obsidian-950 border border-white/10 flex items-center justify-between gap-3';
+                card.innerHTML = `
+                    <div>
+                        <h4 class="text-xs font-bold text-white">${item.name[currentLang]}</h4>
+                        <span class="text-[10px] font-mono text-amber-400">${formatPrice(item.priceIDR, item.priceUSD)} x ${item.qty}</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateQty(${index}, -1)" class="w-6 h-6 rounded bg-obsidian-800 text-slate-300 text-xs flex items-center justify-center hover:bg-obsidian-700">-</button>
+                        <span class="text-xs font-mono text-white">${item.qty}</span>
+                        <button onclick="updateQty(${index}, 1)" class="w-6 h-6 rounded bg-obsidian-800 text-slate-300 text-xs flex items-center justify-center hover:bg-obsidian-700">+</button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+
+            totalPriceEl.innerText = formatPrice(totalIDR, totalUSD);
+        }
+
+        function updateQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return;
+
+            let totalIDR = 0;
+            let totalUSD = 0;
+            let orderText = currentLang === 'id' ? "*ORDER VAULT - ARYNX STORE*\n\nHalo Admin, saya ingin melakukan pemesanan aset digital:\n\n" : "*VAULT ORDER - ARYNX STORE*\n\nHello Admin, I would like to order the following digital assets:\n\n";
+
+            cart.forEach((item, idx) => {
+                const subIDR = item.priceIDR * item.qty;
+                const subUSD = item.priceUSD * item.qty;
+                totalIDR += subIDR;
+                totalUSD += subUSD;
+                orderText += `${idx + 1}. *${item.name[currentLang]}*\n   Jumlah: ${item.qty} | Subtotal: ${formatPrice(subIDR, subUSD)}\n`;
+            });
+
+            orderText += `\n*Total Estimasi: ${formatPrice(totalIDR, totalUSD)}*\n\nMohon petunjuk pembayaran selanjutnya. Terima kasih!`;
+
+            const adminPhone = "6281932140239";
+            const encoded = encodeURIComponent(orderText);
+            window.open(`https://wa.me/${adminPhone}?text=${encoded}`, '_blank');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <script src="js/product.js"></script>
+    <script src="js/app.js"></script>
+    
+</body>
+</html>
